@@ -3,31 +3,30 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>AI AFYA PRO – Natural Molecular Prototype</title>
-    <!-- Marked.js kwa Rendering -->
+    <title>AI AFYA PRO – Molecular & Natural Studio</title>
+    <!-- Marked.js kwa Rendering ya Majedwali -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         :root {
-            --bg-dark: #010409;
+            --bg-dark: #020617;
             --emerald: #10b981;
             --emerald-soft: rgba(16, 185, 129, 0.1);
-            --card-bg: rgba(13, 17, 23, 0.9);
-            --border: rgba(48, 54, 61, 1);
-            --text-light: #e6edf3;
-            --text-dim: #8b949e;
+            --card-bg: rgba(15, 23, 42, 0.9);
+            --text-light: #f1f5f9;
+            --border: rgba(16, 185, 129, 0.2);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             background: var(--bg-dark);
             color: var(--text-light);
-            padding: 15px;
+            padding: 16px;
             min-height: 100vh;
             line-height: 1.8;
         }
 
-        .container { max-width: 950px; margin: 0 auto; }
+        .container { max-width: 1100px; margin: 0 auto; }
 
         /* HEADER */
         .header {
@@ -35,71 +34,83 @@
             justify-content: space-between;
             align-items: center;
             padding: 25px;
-            background: var(--card-bg);
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            margin-bottom: 30px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
-        }
-        .header h1 { font-size: 1.5rem; font-weight: 800; }
-        .header h1 span { color: var(--emerald); }
-        .stats { font-size: 0.75rem; background: var(--emerald-soft); padding: 8px 18px; border-radius: 50px; color: var(--emerald); border: 1px solid var(--emerald); font-weight: bold; }
-
-        /* SEARCH BOX */
-        .search-area {
-            background: var(--card-bg);
-            padding: 30px;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
             border-radius: 24px;
             border: 1px solid var(--border);
             margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
         }
-        .search-area h2 { font-size: 1.1rem; margin-bottom: 15px; color: var(--emerald); }
+        .header h1 { font-size: 1.6rem; font-weight: 800; color: white; }
+        .header h1 span { color: var(--emerald); }
+        .stats { font-size: 0.75rem; background: var(--emerald-soft); padding: 8px 20px; border-radius: 50px; color: var(--emerald); border: 1px solid var(--emerald); font-weight: bold; }
+
+        /* SEARCH CONSOLE */
+        .search-area {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 30px;
+        }
+        .search-area h2 { font-size: 1.2rem; margin-bottom: 15px; color: var(--emerald); font-weight: 500; }
         .search-box { display: flex; gap: 12px; flex-wrap: wrap; }
         .search-box input {
-            flex: 1; padding: 16px; background: rgba(0,0,0,0.5); border: 1px solid var(--border);
-            border-radius: 12px; color: white; font-size: 1rem; min-width: 250px; outline: none;
+            flex: 1; padding: 18px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px; color: white; font-size: 1rem; min-width: 280px; outline: none; transition: 0.4s;
         }
-        .search-box input:focus { border-color: var(--emerald); }
+        .search-box input:focus { border-color: var(--emerald); box-shadow: 0 0 15px rgba(16, 185, 129, 0.3); }
         .search-box .btn {
-            padding: 16px 35px; background: var(--emerald); color: white; border: none;
-            border-radius: 12px; font-weight: 800; cursor: pointer; transition: 0.3s;
+            padding: 18px 35px; background: var(--emerald); color: white; border: none;
+            border-radius: 16px; font-weight: 800; cursor: pointer; transition: 0.3s;
         }
-        .search-box .btn:hover { background: #059669; }
+        .search-box .btn:hover { background: #059669; transform: translateY(-3px); }
 
-        /* OUTPUT STYLING */
-        .results { display: none; margin-top: 20px; animation: fadeIn 0.6s ease; }
+        /* OUTPUT STYLING (Google Style) */
+        .results { display: none; margin-top: 20px; animation: slideUp 0.6s ease-out; }
         .results.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .output-content h1 { font-size: 1.8rem; color: var(--emerald); margin: 30px 0; text-align: center; font-weight: 800; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
-        .output-content h2 { font-size: 1.4rem; color: #fcd34d; margin: 40px 0 20px 0; padding-left: 15px; border-left: 6px solid #fcd34d; }
-        .output-content h3 { font-size: 1.2rem; color: #60a5fa; margin: 25px 0 15px 0; }
-        .output-content p { margin-bottom: 20px; color: #cbd5e1; }
-
-        /* TABLES */
-        .output-content table {
-            width: 100%; border-collapse: collapse; margin: 25px 0; background: rgba(255, 255, 255, 0.02);
-            border-radius: 12px; overflow: hidden; border: 1px solid var(--border);
+        .output-content h1 { font-size: 1.8rem; color: var(--emerald); margin-bottom: 30px; border-bottom: 2px solid var(--border); padding-bottom: 15px; }
+        .output-content h2 { 
+            font-size: 1.5rem; color: #fcd34d; margin: 40px 0 20px 0; padding: 12px 25px; 
+            background: rgba(252, 211, 77, 0.1); border-left: 8px solid #fcd34d; border-radius: 6px;
         }
-        .output-content th { background: #161b22; color: var(--emerald); padding: 18px; text-align: left; font-size: 0.85rem; border-bottom: 2px solid var(--border); }
-        .output-content td { padding: 18px; border-bottom: 1px solid var(--border); font-size: 0.95rem; vertical-align: top; color: #c9d1d9; }
+        .output-content h3 { font-size: 1.2rem; color: #60a5fa; margin: 25px 0 15px 0; border-bottom: 1px dashed rgba(96, 165, 250, 0.2); padding-bottom: 5px; }
+        .output-content p { margin-bottom: 18px; color: #cbd5e1; }
         
+        /* MAJEDWALI YA KEMIA */
+        .output-content table {
+            width: 100%; border-collapse: collapse; margin: 25px 0; background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05);
+        }
+        .output-content th { background: #1e293b; color: var(--emerald); padding: 18px; text-align: left; font-size: 0.85rem; text-transform: uppercase; border-bottom: 2px solid var(--emerald); }
+        .output-content td { padding: 18px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem; vertical-align: top; color: #cbd5e1; }
+        
+        /* LISTS */
+        .output-content ul { list-style: none; margin-bottom: 25px; }
+        .output-content li { 
+            background: rgba(255,255,255,0.02); padding: 15px 20px; border-radius: 12px; 
+            margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.05);
+        }
+        .output-content li strong { color: var(--emerald); display: block; margin-bottom: 5px; font-size: 1.1rem; }
+
         /* WARNING BOX */
-        .warning-box { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.4); border-left: 6px solid #ef4444; padding: 25px; border-radius: 12px; margin: 30px 0; color: #fca5a5; }
+        .warning-box { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.2); border-left: 6px solid #ef4444; padding: 25px; border-radius: 15px; margin-top: 40px; color: #fca5a5; }
 
         /* LOADER */
         .loading { display: none; text-align: center; padding: 60px; }
         .loading.active { display: block; }
-        .spinner { border: 4px solid rgba(16, 185, 129, 0.1); border-top: 4px solid var(--emerald); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto 20px; }
+        .spinner { border: 4px solid rgba(16, 185, 129, 0.1); border-top: 4px solid var(--emerald); border-radius: 50%; width: 55px; height: 55px; animation: spin 1s linear infinite; margin: 0 auto 25px; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        .action-bar { display: flex; gap: 12px; margin-top: 50px; padding: 30px 0; border-top: 1px solid var(--border); }
-        .btn-sec { padding: 12px 25px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); color: white; border-radius: 10px; cursor: pointer; font-size: 0.85rem; transition: 0.3s; }
-        .btn-sec:hover { border-color: var(--emerald); background: var(--emerald-soft); }
+        .action-bar { display: flex; gap: 15px; margin-top: 50px; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+        .btn-sec { padding: 14px 28px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: white; border-radius: 12px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: 0.3s; }
+        .btn-sec:hover { border-color: var(--emerald); background: rgba(16, 185, 129, 0.1); }
 
         @media (max-width: 600px) {
             .header h1 { font-size: 1.1rem; }
-            .output-content table { font-size: 0.8rem; }
+            .output-content table { display: block; overflow-x: auto; }
             .search-box .btn { width: 100%; }
         }
     </style>
@@ -113,17 +124,17 @@
         </header>
 
         <section class="search-area">
-            <h2>🔬 Reverse-Engineering ya Molekuli kwenda Tiba Asili</h2>
+            <h2>🔬 Molecular Reverse-Engineering & Global Remedies</h2>
             <div class="search-box">
-                <input type="text" id="diseaseInput" placeholder="Andika ugonjwa hapa (mfano: Nguvu za kiume, Sukari, Presha)..." value="Nguvu za kiume">
-                <button class="btn" id="analyzeBtn">ANZA UCHAMBUZI</button>
+                <input type="text" id="diseaseInput" placeholder="Andika ugonjwa hapa (mfano: Nguvu za kiume, Malaria, Kisukari)..." value="Nguvu za kiume">
+                <button class="btn" id="analyzeBtn">CHAMBUA SASA</button>
             </div>
         </section>
 
         <!-- LOADER -->
         <div class="loading" id="loader">
             <div class="spinner"></div>
-            <p style="color: var(--emerald); font-weight: bold; letter-spacing: 2px;">INACHAKATA MOLEKULI NA FORMULA...</p>
+            <p style="color: var(--emerald); font-weight: bold; letter-spacing: 2px;">VUNJA MOLEKULI ZA KIKEMIA...</p>
         </div>
 
         <!-- RESULTS -->
@@ -136,14 +147,14 @@
             </div>
         </div>
 
-        <footer style="text-align: center; color: #484f58; font-size: 0.7rem; margin-top: 60px; padding-bottom: 40px; letter-spacing: 1px;">
-            &copy; 2026 AI AFYA PRO | MOLECULAR REVERSE-ENGINEERING SYSTEM
+        <footer style="text-align: center; color: #475569; font-size: 0.75rem; margin-top: 60px; padding-bottom: 40px;">
+            🧪 AI AFYA PRO | Teknolojia ya Kemia na Mimea Sanifu
         </footer>
     </div>
 
     <script>
         const CONFIG = {
-            MISTRAL_KEY: 'Si1pSiecs294XjaZmbapcd6WSamrGqAy' // Funguo yako ya Mistral
+            MISTRAL_KEY: 'Si1pSiecs294XjaZmbapcd6WSamrGqAy' 
         };
 
         async function analyze() {
@@ -157,29 +168,42 @@
 
             loader.classList.add('active');
             results.classList.remove('active');
-            statusDot.innerText = "⏳ Inatafuta Formula...";
+            statusDot.innerText = "⏳ Inachambua Molekuli...";
             statusDot.style.color = "#f59e0b";
 
-            // SYSTEM PROMPT ILIYOBORESHWA
-            const systemPrompt = `Wewe ni AI Bingwa wa Elimu ya Dawa (Pharmacology) na Tiba za Asili.
-            Unapopewa ugonjwa wa "${disease}", fanya yafuatayo:
+            // SYSTEM PROMPT ILIYOBORESHWA KABISA (GOOGLE STYLE 10-3-2-1)
+            const systemPrompt = `Wewe ni AI Bingwa wa Elimu ya Dawa (Pharmacology) na Tiba za Asili duniani. 
+            Unapopewa ugonjwa wa "${disease}", lazima ufuatilie muundo huu wa majibu kwa usahihi kabisa:
 
-            1. Taja DAWA 5 BORA zaidi za hospitalini duniani.
-            2. Kwa kila dawa: 
-               - Toa Chemical Formula sahihi.
-               - Orodhesha viambata (Ingredients) na Historia fupi.
-               - **Natural Prototype:** Fanya Reverse-Engineering kwa kutafuta mimea au vitu asilia vyenye kemia (Active compounds) inayofanana na dawa hiyo. 
-            
-            3. ## 🧑‍🌾 MWONGOZO WA MAANDALIZI NYUMBANI (3x3 GUIDE)
-               Tumia MAJEDWALI ya Markdown yenye safu hizi: | Aina ya Maandalizi | Hatua kwa Hatua (Step-by-Step) | Matumizi na Kipimo |
-               
-               LUGHA NA VIPIMO:
-               - Tumia Kiswahili Sanifu cha Kitanzania.
-               - USITUMIE neno "chumvi" kwa vipimo vya vijiko. Tumia: "Kijiko cha Chai" (Teaspoon) au "Kijiko cha Chakula" (Tablespoon).
-               - Kila mmea uandikwe kwa Kiswahili kisha mabano ya Kiingereza, mfano: Kitunguu Saumu (Garlic).
-               - Maelezo yawe rahisi kama unamfundisha mama nyumbani.
+            1. ANZA NA: "Kutengeneza dawa hizi za hospitali (ambazo ni kemikali tupu) inahusisha hatua ngumu za kimaabara..." (Nakili aya hii kama ilivyo).
+            2. ## [Jina la Dawa 1] (Kiungo Kikuu: [Jina la Kemikali])
+               - Toa JEDWALI: | Malighafi za Kikemikali (Hadi Kupatikana Dawa) | Kazi ya Kikemikali Mwilini | Mbadala wa Kiasili (Unakotoka/Unakofanana) |
+               - Fanya hivi kwa DAWA 3 BORA za hospitali.
 
-            4. Mwishoni weka TAHADHARI ZA USALAMA kwenye box la onyo.`;
+            3. ## Tofauti Kubwa Kati ya Kemikali na Asili:
+               - Toa orodha ya tofauti mbili kuu (Instant vs Nutritional).
+
+            4. ## NJIA 10 ZA ASILI NA DAWA TIBA (Hatua kwa Hatua na Vipimo)
+               - Orodhesha njia 10, kila moja iwe na: **Vipimo**, **Hatua**, na **Matumizi**. 
+               - Tumia Kiswahili Sanifu na majina ya Kiingereza kwenye mabano, mfano: Tangawizi (Ginger). 
+               - Vipimo: Tumia "Kijiko cha Chai" au "Kijiko cha Chakula".
+
+            5. ## LISHE 3 (Namna ya Kutayarisha na Vipimo)
+               - Orodhesha vyakula 3 vya tiba.
+
+            6. ## VIDONGE ASILI 2 (Kipimo na Matumizi)
+               - Orodhesha aina 2 za vidonge vya asili/supplements.
+
+            7. ## SMOOTHIE ASILI 1 (Kipimo na Matumizi)
+               - Toa mapishi 1 ya smoothie ya nguvu.
+
+            8. ## DAWA TIBA MIMEA: FAMILIA ZAO NA MIFANO
+               - Toa familia 5-6 za mimea zinazohusika na tiba hiyo (mfano: Zingiberaceae).
+
+            SHERIA:
+            - Lugha iwe Kiswahili Sanifu cha Tanzania.
+            - Maelezo yawe ya kina na rahisi kueleweka.
+            - Mwishoni weka TAHADHARI ZA USALAMA kwenye Box.`;
 
             try {
                 const response = await fetch('https://api.mistral.ai/v1/chat/completions', {
@@ -192,7 +216,7 @@
                         model: 'mistral-small-latest',
                         messages: [
                             { role: 'system', content: systemPrompt },
-                            { role: 'user', content: `Chambua kwa usahihi wa hali ya juu ugonjwa wa: ${disease}` }
+                            { role: 'user', content: `Nipe uchambuzi kamili na mwongozo wa 10-3-2-1 kwa ugonjwa wa: ${disease}` }
                         ],
                         temperature: 0.15
                     })
@@ -202,19 +226,19 @@
                 let text = data.choices[0].message.content;
 
                 // Kutengeneza Warning Box maalum
-                text = text.replace(/TAADHARI ZA USALAMA|TAHADHARI ZA USALAMA/g, '<div class="warning-box"><strong>⚠️ TAHADHARI ZA USALAMA:</strong>');
+                text = text.replace(/TAHADHARI ZA USALAMA/g, '<div class="warning-box"><strong>⚠️ TAHADHARI ZA USALAMA:</strong>');
                 if(text.includes('warning-box')) text += '</div>';
 
                 output.innerHTML = marked.parse(text);
                 
                 loader.classList.remove('active');
                 results.classList.add('active');
-                statusDot.innerText = "✅ Tayari";
+                statusDot.innerText = "✅ Uchambuzi Tayari";
                 statusDot.style.color = "#10b981";
 
             } catch (error) {
                 console.error(error);
-                alert("Hitilafu imetokea. Jaribu tena.");
+                alert("Hitilafu imetokea. Hakikisha API key na mtandao viko sawa.");
                 loader.classList.remove('active');
             }
         }
@@ -222,7 +246,7 @@
         function copyText() {
             const text = document.getElementById('output').innerText;
             navigator.clipboard.writeText(text);
-            alert("Imenakiliwa!");
+            alert("Maelezo yamenakiliwa!");
         }
 
         function clearAll() {

@@ -3,29 +3,27 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>AI AFYA – 3x3 Universal Healing</title>
-    <!-- Marked.js kwa ajili ya Markdown Rendering -->
+    <title>AI AFYA – Mwongozo wa Tiba Asili</title>
+    <!-- Marked.js kwa Rendering -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-        /* MSINGI WA RANGI NA FONTS */
         :root {
             --bg-dark: #020617;
             --emerald: #10b981;
             --emerald-soft: rgba(16, 185, 129, 0.1);
-            --blue-soft: rgba(59, 130, 246, 0.1);
-            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-bg: rgba(30, 41, 59, 0.6);
             --text-light: #f1f5f9;
             --text-dim: #94a3b8;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: var(--bg-dark);
             color: var(--text-light);
             padding: 16px;
             min-height: 100vh;
-            line-height: 1.6;
+            line-height: 1.8; /* Nafasi kati ya mistari iliyoboreshwa */
         }
 
         .container { max-width: 900px; margin: 0 auto; }
@@ -39,78 +37,90 @@
             background: linear-gradient(135deg, #0f172a, #1e293b);
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
-        .header h1 { font-size: 1.3rem; font-weight: 300; display: flex; align-items: center; gap: 10px; }
+        .header h1 { font-size: 1.4rem; font-weight: 600; color: white; }
         .header h1 b { color: var(--emerald); }
-        .stats { font-size: 0.7rem; background: var(--emerald-soft); padding: 5px 15px; border-radius: 30px; color: var(--emerald); border: 1px solid var(--emerald); }
+        .stats { font-size: 0.75rem; background: var(--emerald-soft); padding: 6px 16px; border-radius: 30px; color: var(--emerald); border: 1px solid var(--emerald); font-weight: bold; }
 
         /* SEARCH AREA */
         .search-area {
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(15px);
             padding: 25px;
             border-radius: 24px;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
-        .search-area h2 { font-size: 1.1rem; margin-bottom: 15px; font-weight: 400; color: var(--emerald); }
-        .search-box { display: flex; gap: 10px; flex-wrap: wrap; }
+        .search-area h2 { font-size: 1.2rem; margin-bottom: 15px; font-weight: 500; color: var(--emerald); }
+        .search-box { display: flex; gap: 12px; flex-wrap: wrap; }
         .search-box input {
-            flex: 1; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px; color: white; font-size: 1rem; min-width: 250px; outline: none;
+            flex: 1; padding: 16px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 14px; color: white; font-size: 1rem; min-width: 250px; outline: none; transition: 0.3s;
         }
-        .search-box input:focus { border-color: var(--emerald); }
+        .search-box input:focus { border-color: var(--emerald); box-shadow: 0 0 10px rgba(16, 185, 129, 0.2); }
         .search-box .btn {
-            padding: 15px 30px; background: var(--emerald); color: white; border: none;
-            border-radius: 12px; font-weight: 700; cursor: pointer; transition: 0.3s;
+            padding: 16px 32px; background: var(--emerald); color: white; border: none;
+            border-radius: 14px; font-weight: 700; cursor: pointer; transition: 0.3s; letter-spacing: 1px;
         }
-        .search-box .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4); }
+        .search-box .btn:hover { background: #059669; transform: translateY(-2px); }
 
         /* SUGGESTIONS */
-        .suggestions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px; }
-        .chip { background: rgba(255,255,255,0.05); padding: 6px 15px; border-radius: 20px; font-size: 0.75rem; cursor: pointer; color: var(--text-dim); border: 1px solid transparent; }
-        .chip:hover { border-color: var(--emerald); color: white; }
+        .suggestions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+        .chip { background: rgba(255,255,255,0.05); padding: 8px 18px; border-radius: 50px; font-size: 0.8rem; cursor: pointer; color: var(--text-dim); border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
+        .chip:hover { background: var(--emerald-soft); border-color: var(--emerald); color: white; }
 
         /* RESULTS AREA */
-        .results { display: none; margin-top: 20px; animation: fadeIn 0.5s ease; }
+        .results { display: none; margin-top: 30px; animation: fadeIn 0.6s ease; }
         .results.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* KADI ZA MATOKEO (3x3 Styling) */
-        .output-content h1 { font-size: 1.6rem; color: var(--emerald); margin-bottom: 20px; border-bottom: 2px solid var(--emerald-soft); padding-bottom: 10px; }
+        /* MPANGILIO WA MAJIBU (OUTPUT) */
+        .output-content h1 { font-size: 1.7rem; color: var(--emerald); margin-bottom: 25px; text-align: center; border-bottom: 2px solid var(--emerald-soft); padding-bottom: 15px; }
         .output-content h2 { 
-            font-size: 1.3rem; color: #fcd34d; margin: 30px 0 15px 0; padding: 10px 15px; 
-            background: var(--emerald-soft); border-left: 5px solid var(--emerald); border-radius: 0 10px 10px 0; 
+            font-size: 1.4rem; color: #fcd34d; margin: 40px 0 20px 0; padding: 12px 20px; 
+            background: rgba(252, 211, 77, 0.1); border-left: 6px solid #fcd34d; border-radius: 4px; 
         }
-        .output-content h3 { font-size: 1.1rem; color: #60a5fa; margin: 20px 0 10px 0; border-bottom: 1px dashed rgba(96, 165, 250, 0.3); padding-bottom: 5px; }
-        
-        .output-content p { margin-bottom: 15px; color: var(--text-dim); font-size: 0.95rem; }
-        .output-content ul { list-style: none; margin-bottom: 20px; }
-        .output-content li { 
-            background: rgba(255,255,255,0.03); padding: 12px 15px; border-radius: 10px; 
-            margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem;
-        }
-        .output-content li strong { color: var(--emerald); }
+        .output-content h3 { font-size: 1.2rem; color: #60a5fa; margin: 25px 0 15px 0; font-weight: 600; }
+        .output-content p { margin-bottom: 20px; color: #cbd5e1; font-size: 1rem; }
 
-        /* LOADING */
-        .loading { display: none; text-align: center; padding: 40px; }
+        /* MAJEDWALI (TABLES) */
+        .output-content table {
+            width: 100%; border-collapse: collapse; margin: 25px 0; background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .output-content th {
+            background: #1e293b; color: var(--emerald); padding: 15px; text-align: left;
+            font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; border-bottom: 2px solid var(--emerald);
+        }
+        .output-content td {
+            padding: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.95rem; vertical-align: top;
+        }
+        .output-content tr:hover { background: rgba(16, 185, 129, 0.05); }
+
+        /* WARNING BOX */
+        .warning-box { 
+            background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); 
+            border-left: 6px solid #ef4444; padding: 20px; border-radius: 12px; 
+            margin: 30px 0; color: #fca5a5; font-size: 0.9rem; line-height: 1.6;
+        }
+
+        /* LOADING INDICATOR */
+        .loading { display: none; text-align: center; padding: 50px; }
         .loading.active { display: block; }
-        .spinner { border: 3px solid rgba(16, 185, 129, 0.1); border-top: 3px solid var(--emerald); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 15px; }
+        .spinner { border: 4px solid rgba(16, 185, 129, 0.1); border-top: 4px solid var(--emerald); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto 20px; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* ACTION BUTTONS */
-        .action-bar { display: flex; gap: 10px; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
-        .btn-sec { padding: 10px 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 8px; cursor: pointer; font-size: 0.8rem; }
-        
-        /* WARNING BOX */
-        .warning-box { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-left: 5px solid #ef4444; padding: 15px; border-radius: 10px; margin: 20px 0; color: #fca5a5; font-size: 0.85rem; }
+        .action-bar { display: flex; gap: 12px; margin-top: 40px; padding-top: 25px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+        .btn-sec { padding: 12px 24px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: white; border-radius: 10px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: 0.3s; }
+        .btn-sec:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--emerald); }
 
         @media (max-width: 600px) {
-            .header h1 { font-size: 1rem; }
-            .search-box input { min-width: 100%; }
-            .search-box .btn { width: 100%; }
+            body { padding: 10px; }
+            .header h1 { font-size: 1.1rem; }
+            .output-content table { font-size: 0.8rem; }
+            .output-content td, .output-content th { padding: 10px; }
         }
     </style>
 </head>
@@ -118,50 +128,48 @@
 
     <div class="container">
         <header class="header">
-            <h1>🧪 AI AFYA <b>3x3 Universal</b></h1>
-            <div class="stats" id="statusDot">Tayari</div>
+            <h1>🧪 AI AFYA <b>Kitanzania</b></h1>
+            <div class="stats" id="statusDot">Mfumo Tayari</div>
         </header>
 
         <section class="search-area">
-            <h2>🔬 Uchambuzi wa Dawa & Mwongozo wa 3x3</h2>
+            <h2>🔬 Tafuta Tiba na Maelekezo ya 3x3</h2>
             <div class="search-box">
-                <input type="text" id="diseaseInput" placeholder="Ingiza ugonjwa wowote..." value="Macho Kuwasha">
-                <button class="btn" id="analyzeBtn">CHAMBUA SASA</button>
+                <input type="text" id="diseaseInput" placeholder="Andika ugonjwa hapa (mfano: Kisukari)..." value="Macho Kuwasha">
+                <button class="btn" id="analyzeBtn">CHAMBUA</button>
             </div>
             <div class="suggestions">
                 <span class="chip" onclick="quickSearch('Nguvu za kiume')">🍆 Nguvu za kiume</span>
                 <span class="chip" onclick="quickSearch('Kisukari')">🩸 Kisukari</span>
                 <span class="chip" onclick="quickSearch('Kikohozi')">🫁 Kikohozi</span>
-                <span class="chip" onclick="quickSearch('Macho Kuwasha')">👁️ Macho Kuwasha</span>
-                <span class="chip" onclick="quickSearch('Shinikizo la Damu')">❤️ Shinikizo</span>
+                <span class="chip" onclick="quickSearch('Vidonda vya tumbo')">🩺 Vidonda vya tumbo</span>
             </div>
         </section>
 
-        <!-- LOADING INDICATOR -->
+        <!-- LOADING -->
         <div class="loading" id="loader">
             <div class="spinner"></div>
-            <p style="color: var(--emerald); font-size: 0.9rem; letter-spacing: 1px;">AI INACHAKATA MOLEKULI NA MWONGOZO...</p>
+            <p style="color: var(--emerald); font-weight: bold; letter-spacing: 1px;">AI INASAFISHA MAELEZO KWA KISWAHILI...</p>
         </div>
 
         <!-- RESULTS -->
         <div class="results" id="results">
             <div class="output-content" id="output"></div>
             <div class="action-bar">
-                <button class="btn-sec" onclick="copyText()">📋 Nakili</button>
+                <button class="btn-sec" onclick="copyText()">📋 Nakili Yote</button>
                 <button class="btn-sec" onclick="window.print()">🖨️ Chapisha</button>
                 <button class="btn-sec" onclick="clearAll()">🗑️ Futa</button>
             </div>
         </div>
 
-        <footer style="text-align: center; color: #444; font-size: 0.7rem; margin-top: 40px; padding-bottom: 20px;">
-            🧪 AI AFYA PRO | Molecular Science & Natural 3x3 Guide
+        <footer style="text-align: center; color: #475569; font-size: 0.75rem; margin-top: 50px; padding-bottom: 30px;">
+            🧪 AI AFYA PRO | Teknolojia ya Kisasa kwa Tiba za Asili
         </footer>
     </div>
 
     <script>
         const CONFIG = {
-            MISTRAL_KEY: 'Si1pSiecs294XjaZmbapcd6WSamrGqAy', // Funguo yako ya Mistral
-            POLLINATION_KEY: 'sk_XnHMlGTSSKKMUkvVBGjHZB4gN30MBupw'
+            MISTRAL_KEY: 'Si1pSiecs294XjaZmbapcd6WSamrGqAy' 
         };
 
         async function analyze() {
@@ -175,26 +183,29 @@
 
             loader.classList.add('active');
             results.classList.remove('active');
-            statusDot.innerText = "⏳ Inatafuta...";
+            statusDot.innerText = "⏳ Inachakata...";
             statusDot.style.color = "#f59e0b";
 
-            // SYSTEM PROMPT KALI YA 3x3
-            const systemPrompt = `Wewe ni AI Bingwa wa Farmasia na Natural Chemistry.
-            Unapopewa ugonjwa, lazima ujibu kwa muundo huu kamili:
+            // SYSTEM PROMPT ILIYOBORESHWA KWA KISWAHILI SANIFU NA MAJEDWALI
+            const systemPrompt = `Wewe ni AI Bingwa wa Tiba na Elimu ya Afya nchini Tanzania. 
+            Kazi yako ni kutoa mwongozo wa afya kwa ugonjwa wa "${disease}".
 
-            1. Uchambuzi wa kikemia wa dawa bora ya kisasa (Hospitalini) ya ugonjwa huo.
-            2. Reverse-Engineering ya molekuli hizo kwenda kwenye vyanzo vya asili.
-            3. ## 🧑‍🌾 MWONGOZO RAHISISHWA 3x3 WA MATUMIZI YA NYUMBANI
-               Hapa gawa katika sehemu 3 kuu:
-               - **💧 1. MUUNDO WA MAJI (Liquid/Tea):** Toa Njia 1, Njia 2, na Njia 3.
-               - **💊 2. MUUNDO WA VIDONGE/UNGA (Pills/Powder):** Toa Njia 1, Njia 2, na Njia 3.
-               - **🥗 3. MUUNDO WA LISHE (Food/Smoothie):** Toa Njia 1, Njia 2, na Njia 3.
+            MAAGIZO YA MUUNDO:
+            1. Anza na uchambuzi mfupi wa kikemia wa dawa bora za hospitali.
+            2. ## 🧑‍🌾 MWONGOZO RAHISI WA 3x3 (TIBA ZA NYUMBANI)
+               Kwa kila sehemu hapa chini, tumia MAJEDWALI ya Markdown yenye safu hizi: | Njia | Maandalizi | Jinsi ya Kutumia |
+               
+               - **💧 Sehemu ya 1: MUUNDO WA MAJI (Chai au Matone):** Toa njia 3 tofauti.
+               - **💊 Sehemu ya 2: MUUNDO WA VIDONGE/UNGA:** Toa njia 3 tofauti (mfano: kutengeneza vidonge vya asali au unga wa kunywa).
+               - **🥗 Sehemu ya 3: MUUNDO WA LISHE (Chakula/Smoothie):** Toa njia 3 tofauti.
 
-            SHERIA: 
-            - Usitumie alama nyingi za bold (**). Tumia vichwa vya habari (Headers).
-            - Lugha iwe Kiswahili fasaha.
-            - Maelezo ya 3x3 yawe rahisi kwa mama ntilie au mzee wa kijijini kuelewa.
-            - Mwishoni weka TAHADHARE YA USALAMA kwenye box la onyo.`;
+            MAAGIZO YA LUGHA:
+            - Tumia Kiswahili Sanifu cha Tanzania ambacho ni rahisi na cha kirafiki.
+            - Epuka maneno magumu ya kitaalamu pasipo lazima. 
+            - Tumia maneno kama "Chemsha," "Ponda," "Saga," "Chuja," "Kunywa."
+            - Maelezo yawe na nafasi (spacing) ya kutosha ili yasibanane.
+
+            MWISHONI: Weka Box la onyo (Warning Box) kwa ajili ya TAHADHARI ZA USALAMA.`;
 
             try {
                 const response = await fetch('https://api.mistral.ai/v1/chat/completions', {
@@ -207,7 +218,7 @@
                         model: 'mistral-small-latest',
                         messages: [
                             { role: 'system', content: systemPrompt },
-                            { role: 'user', content: `Chambua ugonjwa wa: ${disease}` }
+                            { role: 'user', content: `Nipe mwongozo wa ugonjwa wa: ${disease}` }
                         ],
                         temperature: 0.2
                     })
@@ -216,8 +227,8 @@
                 const data = await response.json();
                 let text = data.choices[0].message.content;
 
-                // Safisha HTML tags kama zipo na ubadilishe Warning Box
-                text = text.replace(/TAHADHARE YA USALAMA/g, '<div class="warning-box"><strong>⚠️ TAHADHARE YA USALAMA:</strong>');
+                // Kutengeneza Warning Box maalum
+                text = text.replace(/TAHADHARI ZA USALAMA/g, '<div class="warning-box"><strong>⚠️ TAHADHARI ZA USALAMA:</strong>');
                 if(text.includes('warning-box')) text += '</div>';
 
                 output.innerHTML = marked.parse(text);
@@ -229,7 +240,7 @@
 
             } catch (error) {
                 console.error(error);
-                alert("Hitilafu imetokea. Jaribu tena.");
+                alert("Imeshindwa kuunganisha. Angalia mtandao wako.");
                 loader.classList.remove('active');
             }
         }
@@ -242,7 +253,7 @@
         function copyText() {
             const text = document.getElementById('output').innerText;
             navigator.clipboard.writeText(text);
-            alert("Imenakiliwa!");
+            alert("Maelezo yamenakiliwa!");
         }
 
         function clearAll() {
@@ -251,8 +262,6 @@
         }
 
         document.getElementById('analyzeBtn').addEventListener('click', analyze);
-        
-        // Enter Key Support
         document.getElementById('diseaseInput').addEventListener('keypress', (e) => {
             if(e.key === 'Enter') analyze();
         });
